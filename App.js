@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 import { AppRegistry, Image, StyleSheet, Text, View } from 'react-native';
 
+export default class App extends React.Component {
+  render() {
+    let pic = {
+      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+    };
+    return (
+      <View style={styles.container}>
+        <Text>Hola Leidy mi hermosa bb</Text>
+        <Text>Te amo mucho.</Text>
+        <Greeting name='yupi' />
+        <Bananas />
+        <Blink text='I love to blink'/>
+      </View>
+    );
+  }
+}
+
 class Greeting extends Component {
   render() {
     return (
@@ -20,18 +37,23 @@ class Bananas extends Component {
   }
 }
 
-export default class App extends React.Component {
+class Blink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isShowingText: true};
+
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState(previousState => {
+        return { isShowingText: !previousState.isShowingText };
+      });
+    }, 1000);
+  }
+
   render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
+    let display = this.state.isShowingText ? this.props.text : ' ';
     return (
-      <View style={styles.container}>
-        <Text>Hola Leidy mi hermosa bb</Text>
-        <Text>Te amo mucho.</Text>
-        <Greeting name='yupi' />
-        <Bananas />
-      </View>
+      <Text>{display}</Text>
     );
   }
 }
